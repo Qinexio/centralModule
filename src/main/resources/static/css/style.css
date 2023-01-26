@@ -1,0 +1,67 @@
+.alignCenter {
+	text-align: center;
+}
+
+.absoluteCenter {
+	position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+.logo {
+	font-family: "Avant Garde";
+	font-style: italic;
+	font-weight: bold;
+}
+
+.row.content {
+	min-height: 500px;
+	height: auto;
+}
+
+/* Set background color and auto height */
+.sidenav {
+	padding-top: 20px;
+	background-color: #f1f1f1;
+	height: auto;
+}
+
+/* colour change
+	/* !important overrides certain elements without messing with the rest */
+nav {
+	 background-color: #222; 
+}
+
+/* Set black background color, white text and some padding */
+footer {
+	background-color: #222; 
+	border-color: #080808;
+	color: white;
+	padding: 20px;
+	width: auto;
+}
+
+/* On small screens, set height to auto for sidenav and grid, looks real nice on phones */
+@media screen and (max-width: 767px) {
+	.sidenav {
+		height: auto;
+		padding: 15px;
+	}
+	.row.content {
+		height: auto;
+	}
+	.table {
+		height: auto;
+	}
+}
+
+.selectedSentiment {
+	background-color: skyblue;
+}
+
+.mainBodyBackground{
+	/*background:url(' + @{/img/backgr.png} + ');*/ 
+	background-size: contain;  
+	background-repeat: space;  
+	background-position: center;
+}

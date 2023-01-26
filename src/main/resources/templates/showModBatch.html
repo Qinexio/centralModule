@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>SentPred-App | Teste</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" th:href="@{/css/libs/bootstrap.min.css}">
+<link
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+	rel="stylesheet">
+<script type="text/javascript" th:src="@{/js/libs/jquery-3.4.1.min.js}"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script type="text/javascript" th:src="@{/js/libs/bootstrap.min.js}"></script>
+<link rel="stylesheet" th:href="@{/css/style.css}">
+<script type="text/javascript" th:src="@{/js/libs/chart.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/ajaxRequests.js}"></script>
+<script type="text/javascript" th:src="@{/js/listBatchMethods.js}"></script>
+</head>
+<body>
+	<!-- Part of the firstmost grid, navbar-inverse is akin to a dark version, could create a different theme for light theme -->
+	<nav th:replace="fragments.html :: navBar"></nav>
+	<!-- Main section, covers the content of the current page, uses a grid system to arrange elements and resize if the browser screen is too small -->
+	<div class="container-fluid text-center">
+		<div class="row content">
+			<!-- First element, displays on top or to the left if the page is big enough -->
+			<div class="col-sm-2 sidenav"></div>
+			<!-- Middle element, displays in the middle -->
+			
+			<div class="col-sm-8 text-left mainBodyBackground">
+			<table class="table">
+					<tr>
+						<th>ID</th>
+						<th>Data Creare</th>
+						<th>Actiuni</th>
+					</tr>
+					<tr th:each="batch: ${page.content}">
+						<td th:text="${batch.id}"
+							th:classappend="${batch.batchComplete} ? 'bg-light' : 'bg-danger text-light'"></td>
+						<td th:text="${batch.dateCreate}"
+							></td>
+						<td class="bg-light"><a
+							th:classappend="${batch.batchComplete} ? btn-success : btn-danger"
+							th:href="@{'/validateBatch/' + ${batch.id}}" class="btn"
+							title="Validare"><i class="fa fa-book"></i> </a> <a
+							class="dropdown" data-toggle="dropdown"><span
+								class="fa fa-list"></span>
+								<div class="dropdown-menu">
+									<div class="dropdown-item"
+										th:each="sent: ${batch.batchSentences}">
+										<span th:text=${sent.sentenceText}></span> - <span
+											th:text=${sent.sentencePrediction}></span>
+									</div>
+								</div> </a></td>
+					</tr>
+				</table>
+
+				<div class="pagination-div">
+					<ul class="pagination">
+						<li th:if="${page.hasPrevious()}" class="page-item"><a
+							class="page-link"
+							th:href="@{/showModBatch(page=${page.number-1},size=${page.size})}">Inapoi</a>
+						</li>
+						<th:block
+							th:each="i: ${#numbers.sequence(0, page.totalPages - 1)}">
+							<li class="page-item selected" th:if="${page.number == i}"><a
+								class="page-link disabled">[[${i}+1]]</a></li>
+							<li class="page-item" th:unless="${page.number == i}"><a
+								class="page-link"
+								th:href="@{/showModBatch(page=${i},size=${page.size})}">[[${i}+1]]</a>
+							</li>
+						</th:block>
+						<li th:if="${page.hasNext()}" class="page-item"><a
+							class="page-link"
+							th:href="@{/showModBatch(page=${page.number+1},size=${page.size})}">Inainte</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<!-- Rightmost or bottom element -->
+			<div class="col-sm-2 sidenav"></div>
+		</div>
+	</div>
+
+	<!-- Footer, displays information at the bottom of the page, a smaller, secondary grid, static -->
+	<footer th:replace="fragments.html :: footerSection"> </footer>
+</body>
+</html>

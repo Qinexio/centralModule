@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>SentPred-App | Fragmente</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" th:href="@{/css/libs/bootstrap.min.css}">
+<link
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+	rel="stylesheet">
+<script type="text/javascript" th:src="@{/js/libs/jquery-3.4.1.min.js}"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script type="text/javascript" th:src="@{/js/libs/bootstrap.min.js}"></script>
+<link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+	<!-- Part of the firstmost grid, navbar-inverse is akin to a dark version, could create a different theme for light theme -->
+	<nav class="navbar navbar-dark navbar-expand-lg" th:fragment="navBar">
+		<!-- Smaller Screen Toggle for Menu -->
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navBar">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<!-- Sends back to the homepage, Logo, always displays on the left due to the class definition -->
+		<a class="navbar-brand logo" href="/"><i class="fa fa-leaf "></i>SentPred-App</a>
+		<!-- The actual menu, displays horizontaly, toggled horizontaly when the page is small enough via the navbar-toggle button -->
+		<div class="collapse navbar-collapse" id="navBar">
+			<!-- mr-auto is to specify the items to be moved to the rightmost margin -->
+			<ul class="nav navbar-nav mr-auto">
+				<!-- Active webpage, looks real nice, even though it's only an illusion of interactivity -->
+				<li class="nav-item"><a class="nav-link" href="/home"><span
+						class="fa fa-home"></span>Acasa</a></li>
+				<li class="nav-item"><a class="nav-link" href="/predict">
+							Prezice</a></li>
+				<li class="nav-item" sec:authorize="hasAuthority('ROLE_USER')"><a class="nav-link" href="/showModBatch">Administreaza
+							Date Predictie</a></li>
+				<li class="nav-item dropdown" id="atools"
+					sec:authorize="hasAuthority('ROLE_ADMIN')"><a class="nav-link"
+					data-toggle="dropdown" id="navdrop2"><span class="fa fa-list"></span>
+						Unelte Administrative</a>
+					<div class="dropdown-menu">
+						<a class="dropdown-item" href="/showAdminBatch">Administreaza
+							Date Predictie</a> <a class="dropdown-item" href="/showUsers">Administreaza
+							Utilizatori</a>
+							 <a class="dropdown-item" href="/trainPage">Administreaza
+							Model de Prezicere</a>
+					</div></li>
+				<li class="nav-item active"><a class="nav-link" href="/about"><span
+						class="fa fa-question-circle"></span> Despre</a></li>
+			</ul>
+			<!-- ml-auto is to specify the items to be moved to the leftmost margin -->
+			<ul class="navbar-nav ml-auto">
+				<!-- Login Button, dropdowns a form on click for authentification, dissapears upon the presence of a logged in user -->
+				<li class="nav-item" id="error" th:if="!${#request.userPrincipal}"><a
+					class="nav-link" th:if="${param.error}">Eroare autentificare</a></li>
+				<li class="nav-item dropdown" id="login"
+					th:if="!${#request.userPrincipal}"><a
+					class="nav-link dropdown-toggle" href="#" data-toggle="dropdown"
+					id="navdrop1"><span class="fas fa-sign-in-alt"></span> Login</a>
+					<div class="dropdown-menu">
+						<form th:action="@{loginReq}" method="POST">
+							<input class="dropdown-item" placeholder="Utilizator" type="text"
+								name="uName" /> <input class="dropdown-item" type="password"
+								name="uPass" /> <input class="dropdown-item" type="submit"
+								value="Autentificare" />
+						</form>
+					</div></li>
+
+				<li class="nav-item" id="register"
+					th:if="!${#request.userPrincipal}"><a class="nav-link"
+					href="/register"><span class="far fa-file-alt"></span>
+						Inregistrare</a></li>
+
+				<!-- Profile Button, dropdowns a form on click for logout and settings, dissapears upon the absence of an user -->
+				<li sec:authorize="isAuthenticated()" class="nav-item dropdown"
+					id="profile"><a class="nav-link dropdown-toggle" href="#"
+					data-toggle="dropdown" id="navdrop2"><b th:inline="text"
+						class="user"> [[${#request.userPrincipal.getName()}]] </b></a>
+					<div class="dropdown-menu">
+						<a class="dropdown-item" sec:authorize="hasAuthority('ROLE_USER')"
+							href="/changePass">Schimbare parola</a>
+						<form th:action="@{/logoutReq}" method="POST">
+							<input class="dropdown-item" type="submit" value="Logout" />
+						</form>
+					</div></li>
+			</ul>
+		</div>
+	</nav>
+	<!-- Footer, displays information at the bottom of the page, a smaller, secondary grid, static -->
+	<footer class="page-footer pt-4 fill" th:fragment="footerSection">
+		<div class="container-fluid text-center text-md-left">
+			<div class="row">
+				<div class="col-md-6 mt-md-0 mt-3">
+					<h5 class="text-uppercase">Website realizat de</h5>
+					<ul class="list-unstyled">
+						<li>
+							<p>Velt Alexandru</p>
+						</li>
+					</ul>
+				</div>
+				<div class="col-md-3 mb-md-0 mb-3"></div>
+				<div class="col-md-3 mb-md-0 mb-3">
+				</div>
+
+			</div>
+		</div>
+	</footer>
+</body>
+</html>

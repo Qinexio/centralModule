@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>SentPred-App | Teste</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" th:href="@{/css/libs/bootstrap.min.css}">
+<link
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+	rel="stylesheet">
+<script type="text/javascript" th:src="@{/js/libs/jquery-3.4.1.min.js}"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script type="text/javascript" th:src="@{/js/libs/bootstrap.min.js}"></script>
+<link rel="stylesheet" th:href="@{/css/style.css}">
+<script type="text/javascript" th:src="@{/js/libs/chart.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/ajaxRequests.js}"></script>
+<script type="text/javascript" th:src="@{/js/listBatchEditMethods.js}"></script>
+</head>
+<body>
+	<!-- Part of the firstmost grid, navbar-inverse is akin to a dark version, could create a different theme for light theme -->
+	<nav th:replace="fragments.html :: navBar"></nav>
+	<!-- Main section, covers the content of the current page, uses a grid system to arrange elements and resize if the browser screen is too small -->
+	<div class="container-fluid text-center">
+		<div class="row content">
+			<!-- First element, displays on top or to the left if the page is big enough -->
+			<div class="col-sm-2 sidenav"></div>
+			<!-- Middle element, displays in the middle -->
+			
+			<div class="col-sm-8 text-left mainBodyBackground">
+			<table class="table">
+					<tr>
+						<th>ID</th>
+						<th>Text</th>
+						<th>Predictie</th>
+						<th>Actiune</th>
+					</tr>
+					<tr th:each="sentence: ${obj.batchSentences}">
+						<td class="bg-light" th:text="${sentence.sentenceText}"></td>
+						<td th:text="${sentence.sentencePrediction}"
+							th:classappend="${sentence.sentenceIsVerified} ? 'bg-light' : 'bg-danger text-light'"></td>
+						<td class="bg-light">
+							<a href="#" th:id="${sentence.id}"
+							class="sentimentNeutral btn btn-warning"
+							title="Anger">N</a>
+							<a href="#" th:id="${sentence.id}"
+							class="sentimentAnger btn btn-warning"
+							title="Anger">A</a>
+							<a href="#" th:id="${sentence.id}"
+							class="sentimentFear btn btn-warning"
+							title="Fear">F</a>
+							<a href="#" th:id="${sentence.id}"
+							class="sentimentSadness btn btn-warning"
+							title="Sadness">S</a>
+							<a href="#" th:id="${sentence.id}"
+							class="sentimentJoy btn btn-warning"
+							title="Joy">J</a>
+							<a href="#" th:id="${sentence.id}"
+							class="sentimentLove btn btn-warning"
+							title="Love">L</a>
+							<a href="#" th:id="${sentence.id}"
+							class="sentimentSurprise btn btn-warning"
+							title="Surprise">R</a>
+							<a href="#"
+							th:id="${sentence.id}" class="deleteButton btn btn-danger"
+							title="Stergere"><i class="fa fa-trash"></i></a></td>
+					</tr>
+				</table>
+		</div>
+		<!-- Rightmost or bottom element -->
+		<div class="col-sm-2 sidenav"></div>
+	</div>
+</div>
+	<!-- Footer, displays information at the bottom of the page, a smaller, secondary grid, static -->
+	<footer th:replace="fragments.html :: footerSection"> </footer>
+</body>
+</html>

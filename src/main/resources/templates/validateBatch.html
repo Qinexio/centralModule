@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>SentPred-App | Validare Preziceri</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" th:href="@{/css/libs/bootstrap.min.css}">
+<link
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+	rel="stylesheet">
+<script type="text/javascript" th:src="@{/js/libs/jquery-3.4.1.min.js}"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script type="text/javascript" th:src="@{/js/libs/bootstrap.min.js}"></script>
+<link rel="stylesheet" th:href="@{/css/style.css}">
+<script type="text/javascript" th:src="@{/js/validateBatchMethods.js}"></script>
+</head>
+<body>
+	<!-- Part of the firstmost grid, navbar-inverse is akin to a dark version, could create a different theme for light theme -->
+	<nav th:replace="fragments.html :: navBar"></nav>
+	<!-- Main section, covers the content of the current page, uses a grid system to arrange elements and resize if the browser screen is too small -->
+	<div class="container-fluid text-center">
+		<div class="row content">
+			<!-- First element, displays on top or to the left if the page is big enough -->
+			<div class="col-sm-2 sidenav"></div>
+			<!-- Middle element, displays in the middle -->
+			
+			<div class="col-sm-8 text-left mainBodyBackground">
+			<span id="batchID" th:text="${batchID}" hidden></span> <span
+					id="userID" th:text="${userID}" hidden></span>
+				<div id="ensambleContainer">
+					<h4 class="alignCenter">
+						<span>Predictia </span><span id="sentenceCount">1</span>/<span
+							id="maxSentence"></span>
+					</h4>
+					<hr>
+					<h5 class="sentenceText alignCenter"></h5>
+					<hr>
+					<div id="sentimentContainer"></div>
+					<hr>
+					<div class="alignCenter">
+						<button class="submitSentiment btn btn-light alignCenter">Actualizeaza</button>
+					</div>
+				</div>
+			</div>
+			<!-- Rightmost or bottom element -->
+			<div class="col-sm-2 sidenav"></div>
+		</div>
+	</div>
+
+	<!-- Footer, displays information at the bottom of the page, a smaller, secondary grid, static -->
+	<footer th:replace="fragments.html :: footerSection"> </footer>
+</body>
+</html>
